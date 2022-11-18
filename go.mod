@@ -2,7 +2,10 @@ module gitub.com/yazzyk/sc-locatin-cn
 
 go 1.18
 
-require github.com/wailsapp/wails/v2 v2.2.0
+require (
+	github.com/pelletier/go-toml/v2 v2.0.6
+	github.com/wailsapp/wails/v2 v2.2.0
+)
 
 require (
 	github.com/bep/debounce v1.2.1 // indirect

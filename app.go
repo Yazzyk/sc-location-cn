@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
+	"gitub.com/yazzyk/sc-locatin-cn/backend/conf"
 )
 
 // App struct
@@ -41,4 +43,22 @@ func (a *App) shutdown(ctx context.Context) {
 // Greet returns a greeting for the given name
 func (a *App) Greet(name string) string {
 	return fmt.Sprintf("Hello %s, It's show time!", name)
+}
+
+func (this *App) GetConf() conf.Conf {
+	return conf.Config
+}
+
+func (a *App) ChoseDir() string {
+	path, err := runtime.OpenDirectoryDialog(a.ctx, runtime.OpenDialogOptions{
+		Title: "选择星际公民安装目录",
+	})
+	if err != nil {
+		return ""
+	}
+	go func() {
+		conf.Config.SCPath = path
+		conf.Save()
+	}()
+	return path
 }
